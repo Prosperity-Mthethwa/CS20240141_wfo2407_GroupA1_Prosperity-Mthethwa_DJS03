@@ -1,8 +1,16 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 
-let page = 1;
-let matches = books
-
+const createElement = (tag, classNames, attributes, htmlContent) => {
+    const element = document.createElement(tag);
+    if (classNames) {element.classList = classNames};
+    if (attributes) {
+        Object.entries(attributes).forEach(([key, value]) => {
+            element.setAttribute(key, value);
+        });
+    }
+    if (htmlContent) element.innerHTML = htmlContent;
+    return element;
+};
 const starting = document.createDocumentFragment()
 
 for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
