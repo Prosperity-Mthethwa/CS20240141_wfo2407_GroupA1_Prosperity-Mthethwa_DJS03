@@ -12,6 +12,7 @@ const createElement = (tag, classNames, attributes, htmlContent) => {
     if (htmlContent) element.innerHTML = htmlContent;
     return element; // Returns the configured element object 
 };
+
 const starting = document.createDocumentFragment()
 
 // Function declared, updated code readability. 
@@ -26,6 +27,20 @@ const createPreviewButton = ({ author, id, image, title }) => {
         </div>
     `;
     return element; 
+};
+
+const createOptionElement = (value, text) => {
+    const element = createElement('option', null, { value }, text);
+    return element;
+};
+const updateTheme = () => {
+    const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = prefersDarkMode ? 'night' : 'day';
+    const darkColor = prefersDarkMode ? '255, 255, 255' : '10, 10, 20';
+    const lightColor = prefersDarkMode ? '10, 10, 20' : '255, 255, 255';
+    document.querySelector('[data-settings-theme]').value = theme;
+    document.documentElement.style.setProperty('--color-dark', darkColor);
+    document.documentElement.style.setProperty('--color-light', lightColor);
 };
 
 document.querySelector('[data-list-items]').appendChild(starting)
