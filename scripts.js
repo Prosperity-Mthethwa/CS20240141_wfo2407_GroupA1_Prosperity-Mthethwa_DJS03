@@ -59,6 +59,15 @@ const renderBooks = (matches) => {
     document.querySelector('[data-list-items]').appendChild(fragment);
 };
 
+const renderDropdownOptions = (data, selector) => {
+    const fragment = document.createDocumentFragment();
+    fragment.appendChild(createOptionElement('any', `All ${selector}`));
+    Object.entries(data).forEach(([id, name]) => {
+        fragment.appendChild(createOptionElement(id, name));
+    });
+    document.querySelector(`[data-search-${selector}]`).appendChild(fragment);
+};
+
 const applyListeners = () => {
     document.querySelector('[data-search-cancel]').addEventListener('click', () => {
         document.querySelector('[data-search-overlay]').open = false;
@@ -141,3 +150,13 @@ const applyListeners = () => {
         }
     });
 };
+
+let page = 1;
+let matches = books;
+//Implementing abstraction using factory functions.
+    renderBooks(books);
+    renderDropdownOptions(genres, 'genres');
+    renderDropdownOptions(authors, 'authors');
+    updateTheme();
+    updateListButton();
+    applyListeners();
