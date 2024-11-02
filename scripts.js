@@ -43,13 +43,22 @@ const updateTheme = () => {
     document.documentElement.style.setProperty('--color-light', lightColor);
 };
 
-document.querySelector('[data-list-button]').innerText = `Show more (${books.length - BOOKS_PER_PAGE})`
-document.querySelector('[data-list-button]').disabled = (matches.length - (page * BOOKS_PER_PAGE)) > 0
+const updateListButton = () => {
+    const remainingBooks = books.length - BOOKS_PER_PAGE;
+    const button = document.querySelector('[data-list-button]');
+    button.innerText = `Show more (${remainingBooks})`;
+    button.disabled = remainingBooks > 0;
+};
 
-document.querySelector('[data-list-button]').innerHTML = `
-    <span>Show more</span>
-    <span class="list__remaining"> (${(matches.length - (page * BOOKS_PER_PAGE)) > 0 ? (matches.length - (page * BOOKS_PER_PAGE)) : 0})</span>
-`
+const renderBooks = (matches) => {
+    const fragment = document.createDocumentFragment();
+    matches.slice(0, BOOKS_PER_PAGE).forEach((book) => {
+        const element = createPreviewButton(book);
+        fragment.appendChild(element);
+    });
+    document.querySelector('[data-list-items]').appendChild(fragment);
+};
+
 
 document.querySelector('[data-search-cancel]').addEventListener('click', () => {
     document.querySelector('[data-search-overlay]').open = false
