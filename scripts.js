@@ -13,7 +13,6 @@ const createElement = (tag, classNames, attributes, htmlContent) => {
     return element; // Returns the configured element object 
 };
 
-const starting = document.createDocumentFragment()
 
 // Function declared, updated code readability. 
 const createPreviewButton = ({ author, id, image, title }) => {
